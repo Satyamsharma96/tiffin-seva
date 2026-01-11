@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiffin Seva - Homemade Food Delivered Fresh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --secondary: #ff9800;
+            --light: #f9f9f9;
+            --dark: #333;
+            --gray: #777;
+            --light-gray: #f5f5f5;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 60px;
+            width: auto;
+            margin-right: 15px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        /* Hero Section with Slideshow */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+        }
+        
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            max-width: 800px;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background-color: #e68900;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* App Section */
+        .app-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .app-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .app-info {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        
+        .app-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .app-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .app-features {
+            margin: 30px 0;
+        }
+        
+        .app-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .app-feature i {
+            background-color: var(--primary-light);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .download-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--dark);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        
+        .download-btn:hover {
+            background-color: #444;
+            transform: translateY(-3px);
+        }
+        
+        .download-btn i {
+            font-size: 1.8rem;
+            margin-right: 10px;
+        }
+        
+        .coming-soon {
+            background-color: var(--primary);
+        }
+        
+        /* Customers Section */
+        .customers-section {
+            padding: 80px 0;
+        }
+        
+        .customers-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        /* Offers Section */
+        .offers-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .offers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .offer-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .offer-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            display: inline-block;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            border-radius: 5px;
+        }
+        
+        .offer-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .offer-content {
+            padding: 25px;
+        }
+        
+        .offer-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .offer-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-right: 10px;
+        }
+        
+        .old-price {
+            font-size: 1.2rem;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+        
+        /* Information Section */
+        .info-section {
+            padding: 80px 0;
+        }
+        
+        .info-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .info-card {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .info-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--secondary);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .price-duration {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .pricing-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        /* Service Areas */
+        .areas-section {
+            padding: 80px 0;
+        }
+        
+        .areas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .area-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .area-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+
+
+
+
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--light-gray);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+        
+        .step-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+
+ /* App Section */
+        .app-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .app-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .app-info {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        
+        .app-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .app-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .app-features {
+            margin: 30px 0;
+        }
+        
+        .app-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .app-feature i {
+            background-color: var(--primary-light);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .download-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+        
+        .download-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+        
+        .download-btn i {
+            font-size: 1.8rem;
+            margin-right: 10px;
+        }
+        /* Customers Section */
+        .customers-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .customers-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        /* Founder Section */
+        .founder-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .founder-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+        
+        .founder-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .founder-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .founder-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .founder-info h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .founder-title {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-column ul li i {
+            margin-right: 10px;
+            color: var(--secondary);
+            width: 20px;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .app-container, .founder-container {
+                flex-direction: column;
+            }
+            
+            .app-info {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .mobile-menu {
+                display: none;
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+            
+            .mobile-menu ul {
+                flex-direction: column;
+            }
+            
+            .mobile-menu ul li {
+                margin: 10px 0;
+            }
+            
+            .hero {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 70px 0;
+                height: 450px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .stat-item {
+                min-width: 150px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <!-- Replace the src with your logo image -->
+                <img src="image/logo (Tiffin).svg" alt="Tiffin Seva Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>Tiffin Seva</h1>
+                    <p>Homemade Taste Delivered to Your Office</p>
+                </div>
+            </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="desktop-menu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                    <li><a href="#areas">Service Areas</a></li>
+                    <li><a href="#founder">Founder</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+    </header>
+
+    <!-- Hero Section with Slideshow -->
+    <section class="hero" id="home">
+        <!-- Slide 1 -->
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+            <div class="hero-content">
+                <h2>Fresh, Healthy & Delicious Food at Your Doorstep</h2>
+                <p>With our Tiffin Seva service, you get homemade fresh and nutritious food every day. Call us now to place your order.</p>
+                <a href="tel:+9196219654441" class="cta-button">Call Now: +91 96219 654441</a>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+            <div class="hero-content">
+                <h2>Daily Fresh Meals Cooked with Love</h2>
+                <p>We prepare fresh meals daily using high-quality ingredients. No preservatives, just home-style cooking.</p>
+                <a href="tel:+9196219654441" class="cta-button">Call Now: +91 96219 654441</a>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+            <div class="hero-content">
+                <h2>Affordable Plans Starting at Just ₹46/Day</h2>
+                <p>Choose from our variety of meal plans that fit your budget and dietary preferences.</p>
+                <a href="tel:+9196219654441" class="cta-button">Call Now: +91 96219 654441</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Affordable Meal Plans</h2>
+                <p>Choose from our range of meal plans designed to fit every budget</p>
+            </div>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h3>Basic Thali</h3>
+                    <div class="price">₹46<span style="font-size: 1rem;">/day</span></div>
+                    <div class="price-duration">Per day per thali</div>
+                    <ul class="pricing-features">
+                        <li>4 Roti + Sabzi + Dal + Rice</li>
+                        <li>Basic vegetarian meal</li>
+                        <li>Lunch only</li>
+                        <li>No customization</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Standard Thali</h3>
+                    <div class="price">₹60<span style="font-size: 1rem;">/day</span></div>
+                    <div class="price-duration">Per day per thali</div>
+                    <ul class="pricing-features">
+                        <li>4 Roti + Sabzi + Dal + Rice + Salad</li>
+                        <li>Balanced vegetarian meal</li>
+                        <li>Lunch only</li>
+                        <li>Basic customization</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Premium Thali</h3>
+                    <div class="price">₹80<span style="font-size: 1rem;">/day</span></div>
+                    <div class="price-duration">Per day per thali</div>
+                    <ul class="pricing-features">
+                        <li>4 Roti + 2 Sabzi + Dal + Rice + Salad </li>
+                        <li>Full vegetarian meal</li>
+                        <li>Lunch + Dinner option</li>
+                        <li>Full customization</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section-title" style="margin-top: 60px;">
+                <h3>Monthly Subscription Plans</h3>
+            </div>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h3>Monthly Basic</h3>
+                    <div class="price">₹2,800</div>
+                    <div class="price-duration">Per month (Lunch only)</div>
+                    <ul class="pricing-features">
+                        <li>Basic Thali (₹46/day)</li>
+                        <li>30 days meal plan</li>
+                        <li>Fixed menu</li>
+                        <li>No customization</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Best Value</div>
+                    <h3>Monthly Standard</h3>
+                    <div class="price">₹3,200</div>
+                    <div class="price-duration">Per month (Lunch only)</div>
+                    <ul class="pricing-features">
+                        <li>Standard Thali (₹60/day)</li>
+                        <li>30 days meal plan</li>
+                        <li>Weekly menu rotation</li>
+                        <li>Basic customization</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Monthly Premium</h3>
+                    <div class="price">₹4,000</div>
+                    <div class="price-duration">Per month (Lunch + Dinner)</div>
+                    <ul class="pricing-features">
+                        <li>Premium Thali (₹80/day)</li>
+                        <li>60 meals (Lunch + Dinner)</li>
+                        <li>Full menu customization</li>
+                        <li>Special dietary options</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; font-style: italic; color: var(--gray);">
+                <p>Note: Vendor change option available within 7 days of subscription start</p>
+                <p>Daily GAP (Gap Analysis Process) notification sent to track service quality</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="offers-section" id="offers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Special Offers & Discounts</h2>
+                <p>Avail these special offers and save on your meals</p>
+            </div>
+            
+            <div class="offers-container">
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="offer-badge">First Customer</div>
+                    </div>
+                    <div class="offer-content">
+                        <h3>₹100 Off on Monthly Plan</h3>
+                        <div class="offer-price">
+                            <div class="current-price">₹100 OFF</div>
+                        </div>
+                        <p>Special ₹100 discount on your first monthly subscription. Valid for new customers only.</p>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="offer-badge">Birthday Special</div>
+                    </div>
+                    <div class="offer-content">
+                        <h3>Birthday ₹100 Off</h3>
+                        <div class="offer-price">
+                            <div class="current-price">₹100 OFF</div>
+                        </div>
+                        <p>Celebrate your birthday with us! Get ₹100 off on any monthly plan during your birthday month.</p>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="offer-badge">Flexible Option</div>
+                    </div>
+                    <div class="offer-content">
+                        <h3>Vendor Change Option</h3>
+                        <div class="offer-price">
+                            <div class="current-price">7 Days</div>
+                        </div>
+                        <p>Not satisfied with your current vendor? Change your vendor within 7 days of subscription start at no extra cost.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; background-color: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">Daily GAP Notification</h3>
+                <p>We calculate and send daily GAP (Gap Analysis Process) notifications to ensure continuous service improvement and customer satisfaction.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Customers Section -->
+    <section class="customers-section" id="customers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Growth Story</h2>
+                <p>Started 1 year ago, we've grown from manual operations to building an online platform</p>
+            </div>
+            
+            <div class="customers-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="activeCustomers">500+</div>
+                    <div class="stat-text"> Activ Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="mealsDelivered">500+</div>
+                    <div class="stat-text">Meals Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="years">1+</div>
+                    <div class="stat-text">cities</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="rating">4.8</div>
+                    <div class="stat-text">Average Rating</div>
+                </div>
+            </div>
+            
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "I've been getting tiffin from Tiffin Seva for 6 months now. The food quality is always excellent and tastes homemade."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RS</div>
+                        <div>
+                            <h4>Rahul Sharma</h4>
+                            <p>Software Engineer, Lucknow</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As a working professional, Tiffin Seva has been a lifesaver. Fresh homemade food delivered right to my office."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PV</div>
+                        <div>
+                            <h4>Priya Verma</h4>
+                            <p>Teacher, Lucknow</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The idea of connecting local vendors with customers is brilliant. Can't wait for the app to launch!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AP</div>
+                        <div>
+                            <h4>Amit Patil</h4>
+                            <p>Businessman, Lucknow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Service Areas Section -->
+    <section class="areas-section" id="areas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Service Areas in Lucknow</h2>
+                <p>Currently serving these areas with plans to expand soon</p>
+            </div>
+            
+            <div class="areas-container">
+                <div class="area-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Goel</h3>
+                    <p>Complete coverage in Goel area with timely delivery</p>
+                </div>
+                
+                <div class="area-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>BBD</h3>
+                    <p>Service available throughout BBD area</p>
+                </div>
+                
+                <div class="area-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Matiyari</h3>
+                    <p>Full coverage in Matiyari and surrounding areas</p>
+                </div>
+                
+                <div class="area-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Chinhat</h3>
+                    <p>Service extended to Chinhat area recently</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; font-style: italic; color: var(--gray);">
+                <p>Planning to expand to more areas soon. Contact us if you want service in your area.</p>
+            </div>
+        </div>
+    </section>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How Tiffin Seva Works</h2>
+                <p>Our platform connects local food vendors with customers in their area</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-store"></i>
+                    <h3>Vendors List Themselves</h3>
+                    <p>Food vendors register on our platform and specify their service areas in Lucknow.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Customers Enter Location</h3>
+                    <p>Customers enter their location to find all available vendors in their area.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-utensils"></i>
+                    <h3>Browse & Order Food</h3>
+                    <p>Customers browse vendor menus, select meals, and place orders through our app.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Fresh Delivery</h3>
+                    <p>Vendors prepare fresh meals and deliver them to customers at the specified time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Mobile App Section -->
+    <section class="app-section" id="app">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Mobile App Coming Soon!</h2>
+                <p>Our app will connect vendors and customers based on location in Lucknow</p>
+            </div>
+            <div class="app-container">
+                <div class="app-info">
+                    <h3>App Features</h3>
+                    <div class="app-features">
+                        <div class="app-feature">
+                            <i class="fas fa-map-pin"></i>
+                            <div>
+                                <h4>Location-Based Vendors</h4>
+                                <p>See only vendors who serve your area in Lucknow</p>
+                            </div>
+                        </div>
+                        <div class="app-feature">
+                            <i class="fas fa-store"></i>
+                            <div>
+                                <h4>Vendor Registration</h4>
+                                <p>Vendors can easily register and specify their service areas</p>
+                            </div>
+                        </div>
+                        <div class="app-feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>
+                                <h4>Easy Ordering</h4>
+                                <p>Simple interface to browse menus and place orders</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="download-buttons">
+                        <div class="download-btn">
+                            <i class="fab fa-google-play"></i>
+                            <div>
+                                <div>Coming Soon</div>
+                                <small>Google Play</small>
+                            </div>
+                        </div>
+                        <div class="download-btn">
+                            <i class="fab fa-app-store"></i>
+                            <div>
+                                <div>Coming Soon</div>
+                                <small>App Store</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="app-image">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mobile App Screenshot">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Founder Section -->
+    <section class="founder-section" id="founder">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Our Founder</h2>
+                <p>The vision behind Tiffin Seva</p>
+            </div>
+            
+            <div class="founder-container">
+                <div class="founder-image">
+                    <!-- Replace the src with your photo -->
+                    <img src="image/co.png" alt="Satyam Sharma - Founder" class="founder-img">
+                </div>
+                <div class="founder-info">
+                    <h3>Satyam Sharma</h3>
+                    <div class="founder-title">Founder & CEO, Tiffin Seva</div>
+                    <p>With a passion for home-cooked food and a vision to make healthy meals accessible to everyone, Satyam Sharma founded Tiffin Seva in 2025. His mission is to bridge the gap between homemade taste and office convenience.</p>
+                    <p>Having experienced the challenges of finding quality tiffin services himself, Satyam designed Tiffin Seva with a focus on fresh ingredients, timely delivery, and customer satisfaction. His hands-on approach ensures that every meal meets the highest standards of quality and taste.</p>
+                    <p>Under his leadership, Tiffin Seva has grown to serve multiple areas in Lucknow with plans to expand across the city and beyond.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Tiffin Seva</h3>
+                    <p>Homemade taste delivered to your office. We bring you fresh, healthy and delicious food.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/17JAeM8oPL/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/TiffinSeva68978" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/official_tiffin_seva?igsh=MXRsYzEzM2lkZm9vbA==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/9196219654441" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#pricing">Pricing Plans</a></li>
+                        <li><a href="#offers">Special Offers</a></li>
+                        <li><a href="#areas">Service Areas</a></li>
+                        <li><a href="#founder">Our Founder</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Information</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Lucknow, Uttar Pradesh</li>
+                        <li><i class="fas fa-phone"></i> +91 96219 654441</li>
+                        <li><i class="fas fa-envelope"></i> tiffinseva07@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> 8:00 AM - 10:00 PM</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Areas</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Goel</li>
+                        <li><i class="fas fa-check-circle"></i> BBD</li>
+                        <li><i class="fas fa-check-circle"></i> Matiyari</li>
+                        <li><i class="fas fa-check-circle"></i> Chinhat</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Tiffin Seva. All Rights Reserved. | Founded by Satyam Sharma</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+        
+        // Hero image slideshow
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+        
+        function showNextSlide() {
+            // Hide current slide
+            heroSlides[currentSlide].classList.remove('active');
+            
+            // Move to next slide
+            currentSlide = (currentSlide + 1) % heroSlides.length;
+            
+            // Show next slide
+            heroSlides[currentSlide].classList.add('active');
+        }
+        
+        // Change slide every 5 seconds
+        setInterval(showNextSlide, 5000);
+        
+        // Animate statistics counters
+        function animateCounter(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value + (element.id === 'rating' ? '' : '+');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Start counters when section is in view
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate counters if they exist
+                    const activeCustomers = document.getElementById('activeCustomers');
+                    const mealsDelivered = document.getElementById('mealsDelivered');
+                    const cities = document.getElementById('cities');
+                    const rating = document.getElementById('rating');
+                    
+                    if (activeCustomers) animateCounter(activeCustomers, 0, 15, 2000);
+                    if (mealsDelivered) animateCounter(mealsDelivered, 0, 300, 2000);
+                    if (cities) animateCounter(cities, 0, 1, 1500);
+                    if (rating) animateCounter(rating, 0, 4.8, 1500);
+                    
+                    // Stop observing after animation
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe customers section if it exists
+        const customersSection = document.querySelector('.customers-section');
+        if (customersSection) {
+            observer.observe(customersSection);
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Call Now button functionality
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === 'tel:+9196219654441') {
+                    // Call functionality is handled by href
+                    // You can add analytics or tracking here if needed
+                    console.log('Calling Tiffin Seva: +91 96219 654441');
+                }
+            });
+        });
+        
+        // Coming Soon alert for app download buttons (if they exist)
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert("Our mobile app is coming soon! Stay tuned for updates.");
+            });
+        });
+    </script>
+</body>
+</html>
